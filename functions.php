@@ -45,10 +45,31 @@ function montheme_menu_link_class(array $attrs) : array
     return $attrs;
 }
 
-function montheme_pagination(){
+/*function montheme_pagination(){
+
+}*/
+
+
+function montheme_init(){
+    register_taxonomy('langages', 'post', [
+        'labels'=> ['name' => 'Langages'],
+        'show_in_rest' => true,
+        'hierarchical' => true
+    ]);
+
+    register_post_type('projet', [
+        'label' => 'projet',
+        'public' => true,
+        'menu_position' => 3,
+        'menu_icon' => 'dashicons-category',
+        'supports' => ['title', 'editor', 'thumbnail'],
+        'show_in_rest' => true //intégrer l'editeur sous forme de bloc
+    ]);
 
 }
 
+
+add_action('init', 'montheme_init');
 add_action('after_setup_theme', 'montheme_support');
 add_action('wp_enqueue_scripts', 'montheme_register_assets');
 add_filter('document_title_separator', 'montheme_title_separator');
